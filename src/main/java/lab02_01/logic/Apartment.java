@@ -13,6 +13,8 @@ public class Apartment {
 	Calendar rentedFrom;
 	Calendar rentedTo;
 	boolean free;
+	String agreement;
+	String imgPath;
 	
 	public Apartment(int id, String address, float nominalPrice) {
 		this.id = id;
@@ -30,7 +32,7 @@ public class Apartment {
 		this.nominalPrice = nominalPrice;
 	}
 	
-	public boolean rent(String name, float rentingPrice, float deposit, Calendar rentedFrom, Calendar rentedTo) {
+	public boolean rent(String name, float rentingPrice, float deposit, Calendar rentedFrom, Calendar rentedTo, String agreement, String imgPaht) {
 		if(free == false)
 			return false;
 		
@@ -40,6 +42,8 @@ public class Apartment {
 		this.rentedFrom = rentedFrom;
 		this.paidTo = rentedFrom;
 		this.rentedTo = rentedTo;
+		this.agreement = agreement;
+		this.imgPath = imgPaht;
 		this.free = false;
 		
 		return true;
@@ -124,7 +128,9 @@ public class Apartment {
 				paidTo.toString(),
 				rentedFrom.toString(),
 				rentedTo.toString(),
-				Boolean.toString(free)
+				Boolean.toString(free),
+				agreement,
+				imgPath
 		};
 		return ret;
 	}
