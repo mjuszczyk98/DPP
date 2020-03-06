@@ -21,6 +21,20 @@ public class Apartment {
 		this.free = true;
 	}
 	
+	public Apartment(int id,String name, String address, float nominalPrice, float rentingPrice, float deposit
+			,Calendar paidTo, Calendar rentedFrom, Calendar rentedTo, boolean free) {
+		this.id = id;
+		this.name=name;
+		this.address = address;
+		this.nominalPrice = nominalPrice;
+		this.rentingPrice = rentingPrice;
+		this.deposit = deposit;
+		this.paidTo = paidTo;
+		this.rentedFrom = rentedFrom;
+		this.rentedTo = rentedTo;
+		this.free = free;
+	}
+	
 	public Apartment (int id) {
 		this.id = id;
 	}
