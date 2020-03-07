@@ -1,4 +1,4 @@
-package hello_world;
+package lab02_01.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import lab02_01.logic.Apartment;
+import lab02_01.logic.MyCalendar;
 
 
 public class Database {
@@ -34,7 +37,9 @@ public class Database {
 		                + "    paidTo text,\n"
 		                + "    rentedFrom text,\n"
 		                + "    rentedTo text,\n"
-		                + "    free text\n"
+		                + "    free text,\n"
+		                + "    agreement text,\n"
+		                + "    imgPath text\n"
 		                + ")"; 
 	         stmt.executeUpdate(sql);
 	         stmt.close();
@@ -65,7 +70,8 @@ public class Database {
 		for(int i=0;i<apartments.size();i++)
 		{
 		String[] values = apartments.get(i).value();
-		String sql = "INSERT INTO Apartaments(id,name,address,nominalPrice,rentingPrice,deposit,paidTo,rentedFrom,rentedTo,free) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Apartaments(id,name,address,nominalPrice,rentingPrice,deposit,"
+				+ "paidTo,rentedFrom,rentedTo,free,agreement,imgPath) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		
         try (Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -135,7 +141,11 @@ public class Database {
 		
 		         boolean free = Boolean.parseBoolean(rs.getString("free"));
 		         
-		         apartments.add(new Apartment(id,name,address,nominalPrice,rentingPrice,deposit,paidTo,rentedFrom,rentedTo,free));
+		         String agreement = rs.getString("agreement");
+		         
+		         String imgPath = rs.getString("imgPath");
+		         
+		         apartments.add(new Apartment(id,name,address,nominalPrice,rentingPrice,deposit,paidTo,rentedFrom,rentedTo,free,agreement,imgPath));
 		         
 		      }
 		      rs.close();
