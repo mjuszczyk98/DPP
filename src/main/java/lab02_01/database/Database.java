@@ -1,4 +1,4 @@
-package lab02_01.database;
+package hello_world;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,13 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import lab02_01.logic.Apartment;
 
 public class Database {
 	 
@@ -63,6 +60,8 @@ public class Database {
 	
 	public void fillDatabase(List<Apartment> apartments)
 	{
+		
+		
 		for(int i=0;i<apartments.size();i++)
 		{
 		String[] values = apartments.get(i).value();
@@ -81,6 +80,21 @@ public class Database {
         }
 		}
 	}
+	
+	private int [] StringExtracter (String DateString)
+	{
+		
+		String []str = DateString.split("-",3);
+		int []date = new int[str.length];
+		for(int i=0;i<str.length;i++)
+		{
+			date[i]=Integer.parseInt(str[i]);
+		}
+		return date;
+	}
+	
+	
+	
 	public List<Apartment>fillApartmentList()
 	{
 		List<Apartment> apartments = new ArrayList<Apartment>();
@@ -96,9 +110,7 @@ public class Database {
 		      ResultSet rs = stmt.executeQuery( "SELECT * FROM Apartaments;" );
 		      
 		      while ( rs.next() ) {
-		    	 
-		    	 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");		    	 
-		    	 Date date;
+
 		    	 
 		         int id = rs.getInt("id");
 		         String  name = rs.getString("name");
@@ -106,15 +118,21 @@ public class Database {
 		         float nominalPrice = Float.parseFloat(rs.getString("nominalPrice"));
 		         float rentingPrice = Float.parseFloat(rs.getString("rentingPrice"));
 		         float deposit = Float.parseFloat(rs.getString("deposit"));
-		         date = sdf.parse(rs.getString("paidTo"));
-		         Calendar paidTo = Calendar.getInstance();
-		         paidTo.setTime(date);
-		         date = sdf.parse(rs.getString("rentedFrom"));
-		         Calendar rentedFrom = Calendar.getInstance();
-		         rentedFrom.setTime(date);
-		         date = sdf.parse(rs.getString("rentedTo"));
-		         Calendar rentedTo = Calendar.getInstance();
-		         rentedTo.setTime(date);
+		         
+		    	 int []date = new int[3];
+		    	 
+		    	 String str_paidto = rs.getString("paidTo");
+		    	 date = StringExtracter(str_paidto);
+		    	 Calendar paidTo= new MyCalendar(date[2],date[1],date[0]);
+		    	 
+		    	 String str_rentedFrom = rs.getString("rentedFrom");
+		    	 date = StringExtracter(str_rentedFrom);
+		    	 Calendar rentedFrom= new MyCalendar(date[2],date[1],date[0]);
+		    	 
+		    	 String str_rentedTo = rs.getString("rentedTo");
+		    	 date = StringExtracter(str_rentedTo);
+		    	 Calendar rentedTo= new MyCalendar(date[2],date[1],date[0]);
+		
 		         boolean free = Boolean.parseBoolean(rs.getString("free"));
 		         
 		         apartments.add(new Apartment(id,name,address,nominalPrice,rentingPrice,deposit,paidTo,rentedFrom,rentedTo,free));
