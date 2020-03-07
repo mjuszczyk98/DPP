@@ -118,6 +118,16 @@ public class Apartment {
 	}
 	
 	public String[] value() {
+		String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
+				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+
+				Integer.toString(paidTo.get(Calendar.YEAR));
+		String rentedFromString =Integer.toString(rentedFrom.get(Calendar.DAY_OF_MONTH))+"-"+
+				Integer.toString(rentedFrom.get(Calendar.MONTH))+"-"+
+				Integer.toString(rentedFrom.get(Calendar.YEAR));
+		String rentedToString =Integer.toString(rentedTo.get(Calendar.DAY_OF_MONTH))+"-"+
+				Integer.toString(rentedTo.get(Calendar.MONTH))+"-"+
+				Integer.toString(rentedTo.get(Calendar.YEAR));
+
 		String[] ret = {
 				Integer.toString(id),
 				name,
@@ -125,9 +135,9 @@ public class Apartment {
 				Float.toString(nominalPrice),
 				Float.toString(rentingPrice),
 				Float.toString(deposit),
-				paidTo.toString(),
-				rentedFrom.toString(),
-				rentedTo.toString(),
+				paidToString,
+				rentedFromString,
+				rentedToString,
 				Boolean.toString(free),
 				agreement,
 				imgPath
