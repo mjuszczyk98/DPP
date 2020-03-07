@@ -65,8 +65,7 @@ public class Database {
 	
 	public void fillDatabase(List<Apartment> apartments)
 	{
-		
-		
+				
 		for(int i=0;i<apartments.size();i++)
 		{
 		String[] values = apartments.get(i).value();
@@ -87,7 +86,7 @@ public class Database {
 		}
 	}
 	
-	private int [] StringExtracter (String DateString)
+	private int [] stringExtracter (String DateString)
 	{
 		
 		String []str = DateString.split("-",3);
@@ -97,6 +96,109 @@ public class Database {
 			date[i]=Integer.parseInt(str[i]);
 		}
 		return date;
+	}
+	
+	
+	public void insertApartment(Apartment apartment)
+	{
+			String[] values = apartment.value();
+			String sql = "INSERT INTO Apartaments(id,name,address,nominalPrice,rentingPrice,deposit,"
+					+ "paidTo,rentedFrom,rentedTo,free,agreement,imgPath) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+			
+			try (Connection conn = this.connect();
+			    PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setInt(1,Integer.parseInt(values[0]));
+				for(int j = 2,k=1;k<values.length;j++,k++)
+				{
+			    pstmt.setString(j, values[k]);
+				}
+			    pstmt.executeUpdate();
+			} catch (SQLException e) {
+			    System.out.println(e.getMessage());
+			}
+	}
+	
+	public Apartment getApartment(int id)
+	{
+		Apartment apartment=null;
+		Connection c = null;
+		Statement stmt = null;
+		   try {
+		      Class.forName("org.sqlite.JDBC");
+		      c = DriverManager.getConnection("jdbc:sqlite:test.db");
+		      c.setAutoCommit(false);
+		      System.out.println("Opened database successfully");
+
+		      stmt = c.createStatement();
+		      ResultSet rs = stmt.executeQuery( "SELECT * FROM Apartaments WHERE id ="+id+";" );
+		      
+		      while ( rs.next() ) {
+
+		    	 
+		         int index = rs.getInt("id");
+		         String  name = rs.getString("name");
+		         String address  = rs.getString("address");
+		         float nominalPrice = Float.parseFloat(rs.getString("nominalPrice"));
+		         float rentingPrice = Float.parseFloat(rs.getString("rentingPrice"));
+		         float deposit = Float.parseFloat(rs.getString("deposit"));
+		         
+		    	 int []date = new int[3];
+		    	 
+		    	 String str_paidto = rs.getString("paidTo");
+		    	 date = stringExtracter(str_paidto);
+		    	 Calendar paidTo= new MyCalendar(date[2],date[1],date[0]);
+		    	 
+		    	 String str_rentedFrom = rs.getString("rentedFrom");
+		    	 date = stringExtracter(str_rentedFrom);
+		    	 Calendar rentedFrom= new MyCalendar(date[2],date[1],date[0]);
+		    	 
+		    	 String str_rentedTo = rs.getString("rentedTo");
+		    	 date = stringExtracter(str_rentedTo);
+		    	 Calendar rentedTo= new MyCalendar(date[2],date[1],date[0]);
+		
+		         boolean free = Boolean.parseBoolean(rs.getString("free"));
+		         
+		         String agreement = rs.getString("agreement");
+		         
+		         String imgPath = rs.getString("imgPath");
+		         
+		         apartment = new Apartment(index,name,address,nominalPrice,rentingPrice,deposit,paidTo,rentedFrom,rentedTo,free,agreement,imgPath);
+		         
+		      }
+		      rs.close();
+		      stmt.close();
+		      c.close();
+		   } catch ( Exception e ) {
+		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		      System.exit(0);
+		   }
+		   System.out.println("Operation done successfully");
+		  
+		return apartment;
+	}
+	
+	public void removeApartment(int id)
+	{
+		Connection c = null;
+	    Statement stmt = null;
+	    
+	    try {
+         Class.forName("org.sqlite.JDBC");
+         c = DriverManager.getConnection("jdbc:sqlite:test.db");
+         c.setAutoCommit(false);
+         System.out.println("Opened database successfully");
+
+         stmt = c.createStatement();
+         String sql =  "DELETE * FROM Apartaments WHERE id ="+id+";";
+         stmt.executeUpdate(sql);
+         c.commit();
+         stmt.close();
+         c.close();
+	      } catch ( Exception e ) {
+	         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	         System.exit(0);
+	      }
+
 	}
 	
 	
@@ -128,15 +230,15 @@ public class Database {
 		    	 int []date = new int[3];
 		    	 
 		    	 String str_paidto = rs.getString("paidTo");
-		    	 date = StringExtracter(str_paidto);
+		    	 date = stringExtracter(str_paidto);
 		    	 Calendar paidTo= new MyCalendar(date[2],date[1],date[0]);
 		    	 
 		    	 String str_rentedFrom = rs.getString("rentedFrom");
-		    	 date = StringExtracter(str_rentedFrom);
+		    	 date = stringExtracter(str_rentedFrom);
 		    	 Calendar rentedFrom= new MyCalendar(date[2],date[1],date[0]);
 		    	 
 		    	 String str_rentedTo = rs.getString("rentedTo");
-		    	 date = StringExtracter(str_rentedTo);
+		    	 date = stringExtracter(str_rentedTo);
 		    	 Calendar rentedTo= new MyCalendar(date[2],date[1],date[0]);
 		
 		         boolean free = Boolean.parseBoolean(rs.getString("free"));
