@@ -22,14 +22,19 @@ public class Logic {
 	
 	public void edit(int id, String address, float nominalPrice) {
 		apartments.get(apartments.indexOf(new Apartment(id))).edit(address, nominalPrice);;
-		
+	}
+	
+	public void editGet(int id) {
+		String[] value = apartments.get(apartments.indexOf(new Apartment(id))).value();
+		//TODO return 
 	}
 	
 	public void rent(int id, String name, float rentingPrice, float deposit, 
-			int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo) {
+			int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo,
+			String agreement, String imgPath) {
 		Calendar rentedFrom = new MyCalendar(dayFrom, monthFrom, yearFrom);
 		Calendar rentedTo = new MyCalendar(dayTo, monthTo, yearTo);
-		apartments.get(apartments.indexOf(new Apartment(id))).rent(name, rentingPrice, deposit, rentedFrom, rentedTo);
+		apartments.get(apartments.indexOf(new Apartment(id))).rent(name, rentingPrice, deposit, rentedFrom, rentedTo, agreement, imgPath);
 	}
 	
 	public String pay(int id, float amount) {
