@@ -21,7 +21,6 @@ public class AddWindow extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 
-	//private Animal animal;
 
 	Font font = new Font("MonoSpaced", Font.BOLD, 12);
 	
