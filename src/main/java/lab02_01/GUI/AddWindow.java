@@ -103,10 +103,12 @@ public class AddWindow extends JFrame implements ActionListener{
 
 			if (eventSource == OKButton) { 
 				logic.add(Integer.parseInt(idField.getText()), addressField.getText(), Float.parseFloat(nomField.getText()));
+				String[] p = paidField.getText().split("-");
 				String[] from = fromField.getText().split("-");
 				String[] to = toField.getText().split("-");
 				logic.rent(Integer.parseInt(idField.getText()), nameField.getText(),
-						Float.parseFloat(renField.getText()), Float.parseFloat(depField.getText()), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
+						Float.parseFloat(renField.getText()), Float.parseFloat(depField.getText()), Integer.parseInt(p[0]), Integer.parseInt(p[1]),
+						Integer.parseInt(p[2]), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
 						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
 						"", "");
 				parent.refresh();

@@ -24,8 +24,12 @@ public class Logic {
 		return apartments.remove(new Apartment(id));
 	}
 	
+	public Apartment getApartment(int position) {
+		return apartments.get(position);
+	}
+	
 	public void edit(int id, String address, float nominalPrice) {
-		apartments.get(apartments.indexOf(new Apartment(id))).edit(address, nominalPrice);;
+		apartments.get(apartments.indexOf(new Apartment(id))).edit(id, address, nominalPrice);
 	}
 	
 	public String[][] editView() {
@@ -44,11 +48,12 @@ public class Logic {
 	}
 	
 	public void rent(int id, String name, float rentingPrice, float deposit, 
-			int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo,
+			int dayP, int monthP, int yearP, int dayFrom, int monthFrom, int yearFrom, int dayTo, int monthTo, int yearTo,
 			String agreement, String imgPath) {
 		Calendar rentedFrom = new MyCalendar(dayFrom, monthFrom, yearFrom);
 		Calendar rentedTo = new MyCalendar(dayTo, monthTo, yearTo);
-		apartments.get(apartments.indexOf(new Apartment(id))).rent(name, rentingPrice, deposit, rentedFrom, rentedTo, agreement, imgPath);
+		Calendar paidTo = new MyCalendar(dayP, monthP, yearP);
+		apartments.get(apartments.indexOf(new Apartment(id))).rent(name, rentingPrice, deposit,paidTo, rentedFrom, rentedTo, agreement, imgPath);
 	}
 	
 	public String pay(int id, float amount) {

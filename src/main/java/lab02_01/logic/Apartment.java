@@ -44,20 +44,18 @@ public class Apartment {
 		this.id = id;
 	}
 
-	public void edit(String address, float nominalPrice) {
+	public void edit(int id, String address, float nominalPrice) {
+		this.id = id;
 		this.address = address;
 		this.nominalPrice = nominalPrice;
 	}
 	
-	public boolean rent(String name, float rentingPrice, float deposit, Calendar rentedFrom, Calendar rentedTo, String agreement, String imgPaht) {
-		if(free == false)
-			return false;
-		
+	public boolean rent(String name, float rentingPrice, float deposit, Calendar paidTo, Calendar rentedFrom, Calendar rentedTo, String agreement, String imgPaht) {
 		this.name = name;
 		this.rentingPrice = rentingPrice;
 		this.deposit = deposit;
 		this.rentedFrom = rentedFrom;
-		this.paidTo = rentedFrom;
+		this.paidTo = paidTo;
 		this.rentedTo = rentedTo;
 		this.agreement = agreement;
 		this.imgPath = imgPaht;
