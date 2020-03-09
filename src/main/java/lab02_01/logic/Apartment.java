@@ -162,7 +162,7 @@ public class Apartment {
 		return ret;
 	}
 	public String[] value2() {
-		/*String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
+		String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.YEAR));
 		String rentedFromString =Integer.toString(rentedFrom.get(Calendar.DAY_OF_MONTH))+"-"+
@@ -171,7 +171,7 @@ public class Apartment {
 		String rentedToString =Integer.toString(rentedTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(rentedTo.get(Calendar.MONTH))+"-"+
 				Integer.toString(rentedTo.get(Calendar.YEAR));
-*/
+
 		String[] ret = new String[]{
 				Integer.toString(id),
 				name,
@@ -179,7 +179,9 @@ public class Apartment {
 				Float.toString(nominalPrice),
 				Float.toString(rentingPrice),
 				Float.toString(deposit),
-				"","",""
+				paidToString,
+				rentedFromString,
+				rentedToString,
 		};
 		return ret;
 	}

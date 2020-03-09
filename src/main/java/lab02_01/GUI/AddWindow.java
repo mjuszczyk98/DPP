@@ -19,29 +19,27 @@ public class AddWindow extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L;
 
-	//private Animal animal;
-
 	Font font = new Font("MonoSpaced", Font.BOLD, 12);
 	
-	JLabel idLabel   = 		new JLabel("            ID: ");
-	JLabel nameLabel   = 	new JLabel("          name: ");
-	JLabel addressLabel  = 	new JLabel("       address: ");
-	JLabel nomLabel = 		new JLabel(" nominal price: ");
-	JLabel renLabel   = 	new JLabel(" renting price: ");
-	JLabel paidLabel   = 	new JLabel("       paid to: ");
-	JLabel fromLabel  = 	new JLabel("   rented from: ");
-	JLabel toLabel = 		new JLabel("     rented to: ");
-	JLabel freeLabel   = 	new JLabel("          free: ");
+	JLabel idLabel   = 		new JLabel(" ID: ");
+	JLabel nameLabel   = 	new JLabel(" Nazwa najemcy: ");
+	JLabel addressLabel  = 	new JLabel(" Adres: ");
+	JLabel nomLabel = 		new JLabel(" Cena oczekiwana: ");
+	JLabel renLabel   = 	new JLabel(" Czynsz: ");
+	JLabel depLabel   = 	new JLabel(" Kaucja: ");
+	JLabel paidLabel   = 	new JLabel(" Opłacone do: ");
+	JLabel fromLabel  = 	new JLabel(" Wynajem od: ");
+	JLabel toLabel = 		new JLabel(" Wynajem do: ");
 
 	JTextField idField = new JTextField(10);
 	JTextField nameField = new JTextField(10);
 	JTextField addressField = new JTextField(10);
 	JTextField nomField = new JTextField(10);
 	JTextField renField = new JTextField(10);
+	JTextField depField = new JTextField(10);
 	JTextField paidField = new JTextField(10);
 	JTextField fromField = new JTextField(10);
 	JTextField toField = new JTextField(10);
-	JTextField freeField = new JTextField(10);
 
 	JButton OKButton = new JButton("  OK  ");
 	JButton CancelButton = new JButton("Cancel");
@@ -78,6 +76,9 @@ public class AddWindow extends JFrame implements ActionListener{
 		
 		add(renLabel);
 		add(renField);
+
+		add(depLabel);
+		add(depField);
 		
 		add(paidLabel);
 		add(paidField);
@@ -88,22 +89,12 @@ public class AddWindow extends JFrame implements ActionListener{
 		add(toLabel);
 		add(toField);
 		
-		add(freeLabel);
-		add(freeField);
 		
 		add(OKButton);
 		add(CancelButton);
 		
 		
 		setVisible(true);
-	}
-	
-	public void addRow(JTable table) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		String[] row = {idField.getText(),nameField.getText(),addressField.getText(),
-		nomField.getText(),renField.getText(),paidField.getText(),fromField.getText(),
-		toField.getText(),freeField.getText()};
-		model.addRow(row);
 	}
 	
 	@Override
@@ -115,7 +106,7 @@ public class AddWindow extends JFrame implements ActionListener{
 				String[] from = fromField.getText().split("-");
 				String[] to = toField.getText().split("-");
 				logic.rent(Integer.parseInt(idField.getText()), nameField.getText(),
-						Float.parseFloat(renField.getText()), 0, Integer.parseInt(from[0]), Integer.parseInt(from[1]),
+						Float.parseFloat(renField.getText()), Float.parseFloat(depField.getText()), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
 						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
 						"", "");
 				parent.refresh();
