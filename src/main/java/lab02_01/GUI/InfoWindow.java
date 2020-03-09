@@ -12,8 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
+
+import lab02_01.logic.Logic;
 
 public class InfoWindow extends JFrame implements ActionListener {
 
@@ -24,22 +25,24 @@ public class InfoWindow extends JFrame implements ActionListener {
 	
 	JTextArea area = new JTextArea();
 	
-	String agreement = "Example";
-	String path = "C:\\Users\\kukik\\eclipse-workspace\\zadanie\\src\\DPP\\zdjecie2.jpg";
-	
-	ImageIcon icon = new ImageIcon(path);
 	JLabel label = new JLabel();
 	
 	JPanel panel = new JPanel();
 	JPanel panel2 = new JPanel();
 	
+	Logic logic;
+	int row;
+	
 	JButton pathButton = new JButton("Path");
 	JButton agreeButton = new JButton("Edit agreement");
 	
-	InfoWindow(JTable table){
+	InfoWindow(Logic logic,int row){
+		
+		this.logic = logic;
+		this.row = row;
 		
 		label.setPreferredSize(new Dimension(400, 400));
-		label.setIcon(new ImageIcon(path));
+		label.setIcon(new ImageIcon(logic.getApartment(row).getImgPath()));
 		
 		pathButton.addActionListener(this);
 		agreeButton.addActionListener(this);
@@ -55,7 +58,7 @@ public class InfoWindow extends JFrame implements ActionListener {
 		panel.setLayout(new GridLayout(1,2));
 		panel2.setLayout(new GridLayout(1,2));
 		
-		area.setText(agreement);
+		area.setText(logic.getApartment(row).getAgreement());
 		area.setEditable(false);
 		
 		panel.add(label);
@@ -75,9 +78,9 @@ public class InfoWindow extends JFrame implements ActionListener {
 
 		try {
 			if (eventSource == pathButton) { 
-				String pathme = (String)JOptionPane.showInputDialog("Path:");
-				if(pathme!=null) {
-					path = pathme;
+				String path = (String)JOptionPane.showInputDialog("Path:");
+				if(path!=null) {
+					logic.getApartment(row).setImgPath(path);
 					label.setIcon(new ImageIcon(path));
 				}
 			}
@@ -88,8 +91,9 @@ public class InfoWindow extends JFrame implements ActionListener {
 				}
 				else {
 					area.setEditable(false);
-					agreement = area.getText();
+					logic.getApartment(row).setAgreement(area.getText());
 					agreeButton.setText("Edit agreement");
+					logic.getApartment(row).setAgreement(logic.getApartment(row).getAgreement());
 				}
 			}
 		

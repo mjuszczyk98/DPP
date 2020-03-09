@@ -64,6 +64,22 @@ public class Apartment {
 		return true;
 	}
 	
+	public String getAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement(String agreement) {
+		this.agreement = agreement;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
 	public String pay(float amount) {
 		int day = paidTo.get(Calendar.DAY_OF_MONTH);
 		int month = paidTo.get(Calendar.MONTH);

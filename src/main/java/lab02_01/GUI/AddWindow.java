@@ -92,9 +92,6 @@ public class AddWindow extends JFrame implements ActionListener{
 		panel.add(depLabel);
 		panel2.add(depField);
 		
-		panel.add(depositLabel);
-		panel2.add(depositField);
-		
 		panel.add(paidLabel);
 		panel2.add(paidField);
 		
