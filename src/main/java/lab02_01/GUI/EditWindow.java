@@ -1,8 +1,10 @@
-package DPP;
+package lab02_01.GUI;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTable;
+
+import lab02_01.logic.Logic;
 
 public class EditWindow extends AddWindow {
 
@@ -10,10 +12,14 @@ public class EditWindow extends AddWindow {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	String[] data;
 
-	EditWindow(JTable table,String[] data) {
-		super(table);
+	EditWindow(AppWindow parent, Logic logic, int position) {
+		super(parent, logic);
 		setTitle("EditApartment");
+		
+		data = logic.get(position);
 		
 		 idField.setText(data[0]);
 		 nameField.setText(data[1]);
@@ -33,7 +39,7 @@ public class EditWindow extends AddWindow {
 
 		try {
 			if (eventSource == OKButton) { 
-				table.setValueAt((String)idField.getText(), table.getSelectedRow(), 0);
+				/*table.setValueAt((String)idField.getText(), table.getSelectedRow(), 0);
 				table.setValueAt((String)nameField.getText(), table.getSelectedRow(), 1);
 				table.setValueAt((String)addressField.getText(), table.getSelectedRow(), 2);
 				table.setValueAt((String)nomField.getText(), table.getSelectedRow(), 3);
@@ -42,7 +48,7 @@ public class EditWindow extends AddWindow {
 				table.setValueAt((String)paidField.getText(), table.getSelectedRow(), 6);
 				table.setValueAt((String)fromField.getText(), table.getSelectedRow(), 7);
 				table.setValueAt((String)toField.getText(), table.getSelectedRow(), 8);
-				dispose();
+				dispose();*/
 
 			}
 			else if (eventSource == CancelButton) { 

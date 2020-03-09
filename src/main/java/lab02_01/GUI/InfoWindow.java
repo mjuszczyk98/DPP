@@ -1,4 +1,4 @@
-package DPP;
+package lab02_01.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

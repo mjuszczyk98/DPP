@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Logic {
 	
-	List<Apartment> apartments;
+	public List<Apartment> apartments;
 	
 	public Logic() {
 		this.apartments = new ArrayList<Apartment>();
@@ -14,6 +14,10 @@ public class Logic {
 	
 	public boolean add(int id, String address, float nominalPrice) {
 		return apartments.add(new Apartment(id, address, nominalPrice));
+	}
+	
+	public void remove(int position) {
+		apartments.remove(position);
 	}
 	
 	public boolean delete(int id) {
@@ -24,9 +28,19 @@ public class Logic {
 		apartments.get(apartments.indexOf(new Apartment(id))).edit(address, nominalPrice);;
 	}
 	
-	public void editGet(int id) {
-		String[] value = apartments.get(apartments.indexOf(new Apartment(id))).value();
-		//TODO return 
+	public String[][] editView() {
+		String[][] ret = new String[apartments.size()][9];
+		for(int i = 0; i < apartments.size(); i++) {
+			String[] a = apartments.get(i).value2();
+			for(int j = 0; j < 9; j++) {
+				ret[i][j] = a[j];
+			}
+		}
+		return ret;
+	}
+	
+	public String[] get(int position) {
+		return apartments.get(position).value();
 	}
 	
 	public void rent(int id, String name, float rentingPrice, float deposit, 

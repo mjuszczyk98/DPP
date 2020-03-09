@@ -161,6 +161,28 @@ public class Apartment {
 		};
 		return ret;
 	}
+	public String[] value2() {
+		/*String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
+				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+
+				Integer.toString(paidTo.get(Calendar.YEAR));
+		String rentedFromString =Integer.toString(rentedFrom.get(Calendar.DAY_OF_MONTH))+"-"+
+				Integer.toString(rentedFrom.get(Calendar.MONTH))+"-"+
+				Integer.toString(rentedFrom.get(Calendar.YEAR));
+		String rentedToString =Integer.toString(rentedTo.get(Calendar.DAY_OF_MONTH))+"-"+
+				Integer.toString(rentedTo.get(Calendar.MONTH))+"-"+
+				Integer.toString(rentedTo.get(Calendar.YEAR));
+*/
+		String[] ret = new String[]{
+				Integer.toString(id),
+				name,
+				address,
+				Float.toString(nominalPrice),
+				Float.toString(rentingPrice),
+				Float.toString(deposit),
+				"","",""
+		};
+		return ret;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
