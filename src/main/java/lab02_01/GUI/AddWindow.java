@@ -1,4 +1,4 @@
-package DPP;
+package lab02_01.GUI;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import lab02_01.logic.Logic;
 
 
 public class AddWindow extends JFrame implements ActionListener{
@@ -30,8 +32,6 @@ public class AddWindow extends JFrame implements ActionListener{
 	JLabel fromLabel  = 	new JLabel("   rented from: ");
 	JLabel toLabel = 		new JLabel("     rented to: ");
 	JLabel freeLabel   = 	new JLabel("          free: ");
-	
-	JTable table;
 
 	JTextField idField = new JTextField(10);
 	JTextField nameField = new JTextField(10);
@@ -45,10 +45,14 @@ public class AddWindow extends JFrame implements ActionListener{
 
 	JButton OKButton = new JButton("  OK  ");
 	JButton CancelButton = new JButton("Cancel");
+	
+	Logic logic;
+	AppWindow parent;
 
-	AddWindow(JTable table) {
+	AddWindow(AppWindow parent, Logic logic) {
 		
-		this.table = table;
+		this.logic = logic;
+		this.parent = parent;
 		
 		setTitle("AddApartment");  
 		
@@ -106,17 +110,22 @@ public class AddWindow extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		Object eventSource = event.getSource();
 
-		try {
 			if (eventSource == OKButton) { 
-				addRow(table);
+				logic.add(Integer.parseInt(idField.getText()), addressField.getText(), Float.parseFloat(nomField.getText()));
+				String[] from = fromField.getText().split("-");
+				String[] to = toField.getText().split("-");
+				logic.rent(Integer.parseInt(idField.getText()), nameField.getText(),
+						Float.parseFloat(renField.getText()), 0, Integer.parseInt(from[0]), Integer.parseInt(from[1]),
+						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
+						"", "");
+				parent.refresh();
+				dispose();
 			}
 			else if (eventSource == CancelButton) { 
 				dispose();
 			}
 		
-		} catch(Exception e) {
-			
-		}
+		
 		
 	}
 
