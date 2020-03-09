@@ -24,27 +24,28 @@ public class AddWindow extends JFrame implements ActionListener{
 
 	Font font = new Font("MonoSpaced", Font.BOLD, 12);
 	
-	JLabel idLabel   = 		new JLabel("  ID: ");
-	JLabel nameLabel   = 	new JLabel("  name: ");
-	JLabel addressLabel  = 	new JLabel("  address: ");
-	JLabel nomLabel = 		new JLabel("  nominal price:  ");
-	JLabel renLabel   = 	new JLabel("  renting price:  ");
-	JLabel depositLabel   = new JLabel("  deposit: ");
-	JLabel paidLabel   = 	new JLabel("  paid to: ");
-	JLabel fromLabel  = 	new JLabel("  rented from: ");
-	JLabel toLabel = 		new JLabel("  rented to: ");
+	JLabel idLabel   = 		new JLabel(" ID: ");
+	JLabel nameLabel   = 	new JLabel(" Nazwa najemcy: ");
+	JLabel addressLabel  = 	new JLabel(" Adres: ");
+	JLabel nomLabel = 		new JLabel(" Cena oczekiwana: ");
+	JLabel renLabel   = 	new JLabel(" Czynsz: ");
+	JLabel depLabel   = 	new JLabel(" Kaucja: ");
+	JLabel paidLabel   = 	new JLabel(" Opłacone do: ");
+	JLabel fromLabel  = 	new JLabel(" Wynajem od: ");
+	JLabel toLabel = 		new JLabel(" Wynajem do: ");
 	
 	JTable table;
 	
 	JPanel panel = new JPanel(); 
 	JPanel panel2 = new JPanel(); 
 
+
 	JTextField idField = new JTextField(10);
 	JTextField nameField = new JTextField(10);
 	JTextField addressField = new JTextField(10);
 	JTextField nomField = new JTextField(10);
 	JTextField renField = new JTextField(10);
-	JTextField depositField = new JTextField(10);
+	JTextField depField = new JTextField(10);
 	JTextField paidField = new JTextField(10);
 	JTextField fromField = new JTextField(10);
 	JTextField toField = new JTextField(10);
@@ -87,6 +88,9 @@ public class AddWindow extends JFrame implements ActionListener{
 		
 		panel.add(renLabel);
 		panel2.add(renField);
+
+		panel.add(depLabel);
+		panel2.add(depField);
 		
 		panel.add(depositLabel);
 		panel2.add(depositField);
@@ -109,24 +113,18 @@ public class AddWindow extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	
-	public void addRow(JTable table) {
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		String[] row = {idField.getText(),nameField.getText(),addressField.getText(),
-		nomField.getText(),renField.getText(),paidField.getText(),fromField.getText(),
-		toField.getText(),depositField.getText()};
-		model.addRow(row);
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		Object eventSource = event.getSource();
 
 			if (eventSource == OKButton) { 
 				logic.add(Integer.parseInt(idField.getText()), addressField.getText(), Float.parseFloat(nomField.getText()));
+				String[] p = paidField.getText().split("-");
 				String[] from = fromField.getText().split("-");
 				String[] to = toField.getText().split("-");
 				logic.rent(Integer.parseInt(idField.getText()), nameField.getText(),
-						Float.parseFloat(renField.getText()), 0, Integer.parseInt(from[0]), Integer.parseInt(from[1]),
+						Float.parseFloat(renField.getText()), Float.parseFloat(depField.getText()), Integer.parseInt(p[0]), Integer.parseInt(p[1]),
+						Integer.parseInt(p[2]), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
 						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
 						"", "");
 				parent.refresh();

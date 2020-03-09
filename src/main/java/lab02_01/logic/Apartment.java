@@ -44,20 +44,18 @@ public class Apartment {
 		this.id = id;
 	}
 
-	public void edit(String address, float nominalPrice) {
+	public void edit(int id, String address, float nominalPrice) {
+		this.id = id;
 		this.address = address;
 		this.nominalPrice = nominalPrice;
 	}
 	
-	public boolean rent(String name, float rentingPrice, float deposit, Calendar rentedFrom, Calendar rentedTo, String agreement, String imgPaht) {
-		if(free == false)
-			return false;
-		
+	public boolean rent(String name, float rentingPrice, float deposit, Calendar paidTo, Calendar rentedFrom, Calendar rentedTo, String agreement, String imgPaht) {
 		this.name = name;
 		this.rentingPrice = rentingPrice;
 		this.deposit = deposit;
 		this.rentedFrom = rentedFrom;
-		this.paidTo = rentedFrom;
+		this.paidTo = paidTo;
 		this.rentedTo = rentedTo;
 		this.agreement = agreement;
 		this.imgPath = imgPaht;
@@ -162,7 +160,7 @@ public class Apartment {
 		return ret;
 	}
 	public String[] value2() {
-		/*String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
+		String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.YEAR));
 		String rentedFromString =Integer.toString(rentedFrom.get(Calendar.DAY_OF_MONTH))+"-"+
@@ -171,7 +169,7 @@ public class Apartment {
 		String rentedToString =Integer.toString(rentedTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(rentedTo.get(Calendar.MONTH))+"-"+
 				Integer.toString(rentedTo.get(Calendar.YEAR));
-*/
+
 		String[] ret = new String[]{
 				Integer.toString(id),
 				name,
@@ -179,7 +177,9 @@ public class Apartment {
 				Float.toString(nominalPrice),
 				Float.toString(rentingPrice),
 				Float.toString(deposit),
-				"","",""
+				paidToString,
+				rentedFromString,
+				rentedToString,
 		};
 		return ret;
 	}

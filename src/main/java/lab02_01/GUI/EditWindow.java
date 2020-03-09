@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTable;
 
+import lab02_01.logic.Apartment;
 import lab02_01.logic.Logic;
 
 public class EditWindow extends AddWindow {
@@ -13,10 +14,21 @@ public class EditWindow extends AddWindow {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	Logic logic;
+	int position;
+	AppWindow parent;
+	Apartment apartment;
+	
 	String[] data;
 
 	EditWindow(AppWindow parent, Logic logic, int position) {
 		super(parent, logic);
+		
+		this.parent = parent;
+		this.logic = logic;
+		this.position = position;
+		apartment = logic.getApartment(position);
+		
 		setTitle("EditApartment");
 		
 		data = logic.get(position);
@@ -26,7 +38,7 @@ public class EditWindow extends AddWindow {
 		 addressField.setText(data[2]);
 		 nomField.setText(data[3]);
 		 renField.setText(data[4]);
-		 depositField.setText(data[5]);
+		 depField.setText(data[5]);
 		 paidField.setText(data[6]);
 		 fromField.setText(data[7]);
 		 toField.setText(data[8]);
@@ -39,16 +51,17 @@ public class EditWindow extends AddWindow {
 
 		try {
 			if (eventSource == OKButton) { 
-				/*table.setValueAt((String)idField.getText(), table.getSelectedRow(), 0);
-				table.setValueAt((String)nameField.getText(), table.getSelectedRow(), 1);
-				table.setValueAt((String)addressField.getText(), table.getSelectedRow(), 2);
-				table.setValueAt((String)nomField.getText(), table.getSelectedRow(), 3);
-				table.setValueAt((String)renField.getText(), table.getSelectedRow(), 4);
-				table.setValueAt((String)depositField.getText(), table.getSelectedRow(), 5);
-				table.setValueAt((String)paidField.getText(), table.getSelectedRow(), 6);
-				table.setValueAt((String)fromField.getText(), table.getSelectedRow(), 7);
-				table.setValueAt((String)toField.getText(), table.getSelectedRow(), 8);
-				dispose();*/
+				apartment.edit(Integer.parseInt(idField.getText()), addressField.getText(), Float.parseFloat(nomField.getText()));
+				String[] p = paidField.getText().split("-");
+				String[] from = fromField.getText().split("-");
+				String[] to = toField.getText().split("-");
+				logic.rent(Integer.parseInt(idField.getText()), nameField.getText(),
+						Float.parseFloat(renField.getText()), Float.parseFloat(depField.getText()), Integer.parseInt(p[0]), Integer.parseInt(p[1]),
+						Integer.parseInt(p[2]), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
+						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
+						"", "");
+				parent.refresh();
+				dispose();
 
 			}
 			else if (eventSource == CancelButton) { 

@@ -38,7 +38,7 @@ public class AppWindow extends JFrame implements ActionListener{
 	JPanel panel = new JPanel();
 	JTable table = new JTable();
 	
-	String[] header = {"id","address","nominal price","renting price","deposit","paid to","rented from", "rented to","free"};
+	String[] header = {"id", "Najemca", "Adres","Kwota oczekiwana","Czynsz","Kaucja","Oplacone do","Wynajem od", "Wynajem do"};
 	DefaultTableModel model;
 	public AppWindow(){
 		
@@ -46,11 +46,7 @@ public class AppWindow extends JFrame implements ActionListener{
 		
 		setLayout(new BorderLayout());
 		
-		String[][] data = {{ "cos","cos","Nie"},{ "Ania","Bania","Tak"},{ "Ania","Bania","Tak"},{ "Ania","Bania","Tak"}};
-		
-		
-		model = new DefaultTableModel(data,header);
-		table.setModel(model);
+		refresh();
 		
 		addB.addActionListener(this);
 		infoB.addActionListener(this);
@@ -123,16 +119,6 @@ public class AppWindow extends JFrame implements ActionListener{
 	public void refresh() {
 		model = new DefaultTableModel(logic.editView(),header);
 		table.setModel(model);
-		//logic.editView();
-		/*for(String[] s : logic.editView()) {
-			for(String a : s) {
-				System.out.print(a+" ");
-				System.out.println();
-			}
-		}*/
-		
-		//System.out.println(logic.apartments.size());
-		
 	}
 	
 	
