@@ -28,6 +28,8 @@ public class AppWindow extends JFrame implements ActionListener{
 	JButton infoB = new JButton("Info");
 	JButton editB = new JButton("Edit");
 	JButton removeB = new JButton("Remove");
+	JButton importB = new JButton("Import");
+	JButton exportB = new JButton("Export");
 	
 	JPanel panel = new JPanel();
 	JTable table = new JTable();
@@ -36,7 +38,7 @@ public class AppWindow extends JFrame implements ActionListener{
 	setLayout(new BorderLayout());
 	
 	String[][] data = {{ "cos","cos","Nie"},{ "Ania","Bania","Tak"},{ "Ania","Bania","Tak"},{ "Ania","Bania","Tak"}};
-	String[] header = {"id","address","nominal price","renting price","deposit","paid to","rented from", "rented to","free"};
+	String[] header = {"id","address","nominal price","renting price","deposit","paid to","rented from", "rented to"};
 	
 	DefaultTableModel model = new DefaultTableModel(data,header);
 	table.setModel(model);
@@ -45,14 +47,18 @@ public class AppWindow extends JFrame implements ActionListener{
 	infoB.addActionListener(this);
 	editB.addActionListener(this);
 	removeB.addActionListener(this);
+	importB.addActionListener(this);
+	exportB.addActionListener(this);
 	
 	
-	panel.setLayout(new GridLayout(4,1));
+	panel.setLayout(new GridLayout(6,1));
 	
 	panel.add(addB);
 	panel.add(infoB);
 	panel.add(editB);
 	panel.add(removeB);
+	panel.add(importB);
+	panel.add(exportB);
 	
 	add(new JScrollPane(table),BorderLayout.CENTER);
 	add(panel,BorderLayout.EAST);
@@ -61,7 +67,7 @@ public class AppWindow extends JFrame implements ActionListener{
 	
 	setTitle("DeveloperApp");  
 	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-	setSize(1400, 300);
+	setSize(1400, 600);
 	setResizable(false);
 	setLocationRelativeTo(null);
 	setVisible(true);
@@ -99,6 +105,16 @@ public class AppWindow extends JFrame implements ActionListener{
 			else if (eventSource == infoB) { 
 				
 				new InfoWindow(table);
+			}
+			else if (eventSource == infoB) { 
+							
+				new InfoWindow(table);
+			}
+			else if (eventSource == importB) { 
+				
+			}
+			else if (eventSource == exportB) { 
+				
 			}
 		
 		} catch(Exception e) {
