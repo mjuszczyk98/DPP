@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import lab02_01.database.Database;
+import lab02_01.logic.Apartment;
 import lab02_01.logic.Logic;
 
 
@@ -25,6 +29,8 @@ public class AppWindow extends JFrame implements ActionListener{
 	public static void main(String[] args) {
 		new AppWindow();
 	}
+
+	Database db;
 	
 	Logic logic;
 	
@@ -40,10 +46,16 @@ public class AppWindow extends JFrame implements ActionListener{
 	
 	String[] header = {"id", "Najemca", "Adres","Kwota oczekiwana","Czynsz","Kaucja","Oplacone do","Wynajem od", "Wynajem do"};
 	DefaultTableModel model;
+
+	@SuppressWarnings("static-access")
 	public AppWindow(){
 		
-		logic = new Logic();
+		logic = new Logic();		
+		db = new Database();
+		db.createNewApartamentTable();
 		
+		logic.apartments=db.fillApartmentList();
+
 		setLayout(new BorderLayout());
 		
 		refresh();
@@ -84,11 +96,11 @@ public class AppWindow extends JFrame implements ActionListener{
 
 		try {
 			if (eventSource == addB) { 
-				new AddWindow(this, logic);
+				new AddWindow(this, logic, db);
 				
 			}
 			else if (eventSource == editB) {
-				new EditWindow(this, logic, table.getSelectedRow());
+				new EditWindow(this, logic, table.getSelectedRow(),db);
 			}
 			else if (eventSource == removeB) { 
 	

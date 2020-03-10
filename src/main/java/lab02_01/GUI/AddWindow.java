@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
+import lab02_01.database.Database;
 import lab02_01.logic.Logic;
 
 
@@ -30,7 +30,7 @@ public class AddWindow extends JFrame implements ActionListener{
 	JLabel nomLabel = 		new JLabel(" Cena oczekiwana: ");
 	JLabel renLabel   = 	new JLabel(" Czynsz: ");
 	JLabel depLabel   = 	new JLabel(" Kaucja: ");
-	JLabel paidLabel   = 	new JLabel(" Op≈Çacone do: ");
+	JLabel paidLabel   = 	new JLabel(" Op≥acone do: ");
 	JLabel fromLabel  = 	new JLabel(" Wynajem od: ");
 	JLabel toLabel = 		new JLabel(" Wynajem do: ");
 	
@@ -55,11 +55,13 @@ public class AddWindow extends JFrame implements ActionListener{
 	
 	Logic logic;
 	AppWindow parent;
+	Database db;
 
-	AddWindow(AppWindow parent, Logic logic) {
+	AddWindow(AppWindow parent, Logic logic, Database db) {
 		
 		this.logic = logic;
 		this.parent = parent;
+		this.db=db;
 		
 		setTitle("AddApartment");  
 		
@@ -124,6 +126,7 @@ public class AddWindow extends JFrame implements ActionListener{
 						Integer.parseInt(p[2]), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
 						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
 						"", "");
+				db.insertApartment(logic.apartments.get(logic.apartments.size()-1));
 				parent.refresh();
 				dispose();
 			}

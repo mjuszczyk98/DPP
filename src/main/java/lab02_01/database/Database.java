@@ -203,9 +203,11 @@ public class Database {
 	
 	
 	
-	public List<Apartment>fillApartmentList()
+	public List<Apartment> fillApartmentList()
 	{
 		List<Apartment> apartments = new ArrayList<Apartment>();
+		
+		
 		Connection c = null;
 		Statement stmt = null;
 		   try {

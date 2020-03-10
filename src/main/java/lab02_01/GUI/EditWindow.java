@@ -2,8 +2,7 @@ package lab02_01.GUI;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JTable;
-
+import lab02_01.database.Database;
 import lab02_01.logic.Apartment;
 import lab02_01.logic.Logic;
 
@@ -21,8 +20,8 @@ public class EditWindow extends AddWindow {
 	
 	String[] data;
 
-	EditWindow(AppWindow parent, Logic logic, int position) {
-		super(parent, logic);
+	EditWindow(AppWindow parent, Logic logic, int position, Database db) {
+		super(parent, logic,db);
 		
 		this.parent = parent;
 		this.logic = logic;
