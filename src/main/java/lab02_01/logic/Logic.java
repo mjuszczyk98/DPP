@@ -17,6 +17,10 @@ public class Logic {
 		return apartments.add(new Apartment(id, address, nominalPrice));
 	}
 	
+	public boolean add(Apartment app) {
+		return apartments.add(app);
+	}
+	
 	public void remove(int position) {
 		apartments.remove(position);
 	}
