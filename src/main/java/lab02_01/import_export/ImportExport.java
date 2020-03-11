@@ -42,25 +42,36 @@ public class ImportExport {
 			csvText.append(nullString).append(semicolon);
 		}
 		csvText.append(apartment.isFree()).append(semicolon);
-		csvText.append(apartment.getAgreement()).append(semicolon);
-		csvText.append(apartment.getImgPath()).append(semicolon);	
+		if (apartment.getAgreement().isEmpty() || apartment.getAgreement() == null) {
+			csvText.append(nullString).append(semicolon);
+		} else {
+			csvText.append(apartment.getAgreement()).append(semicolon);
+		}
+		if (apartment.getImgPath().isEmpty() || apartment.getImgPath() == null) {
+			csvText.append(nullString).append(semicolon);
+		} else {
+			csvText.append(apartment.getImgPath()).append(semicolon);
+		}
 		
 		return csvText.toString();
 	}
 	
-	public static void exportData(Apartment apartment) {
+	public static void exportApartment(Apartment apartment, String exportPath) {
 		Date now = Calendar.getInstance().getTime();
-		String exportFile = "./export/apartment_".concat(formatterFilename.format(now)).concat(".csv");
+		String exportFilename = "\\apartment_".concat(formatterFilename.format(now)).concat(".csv");
 		try {
-			File exportDirectory = new File("./export/");
+			File exportDirectory = new File(exportPath);
 			exportDirectory.mkdir();
-			FileWriter csvWriter = new FileWriter(exportFile);
+			FileWriter csvWriter = new FileWriter(exportPath.concat(exportFilename));
 			csvWriter.append(createCsvContent(apartment));
 			csvWriter.flush();
 			csvWriter.close();			
+	        System.out.println("Apartment exported successfully to ".concat(exportPath).concat(exportFilename));
 		} catch (IOException e) {
+		    System.out.println("An error occured during apartment export. Please check stack trace for more information: ");
 			e.printStackTrace();
-		}			
+		}		
+
 	}
 	
 	public static Apartment importApartment(String filepath) {
@@ -78,6 +89,7 @@ public class ImportExport {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		    System.out.println("Apartment imported successfully");
 		}
 		
 		return result;		

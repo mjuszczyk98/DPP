@@ -63,17 +63,9 @@ public class Apartment {
 		
 		return true;
 	}
-	
-	public String getAgreement() {
-		return agreement;
-	}
 
 	public void setAgreement(String agreement) {
 		this.agreement = agreement;
-	}
-
-	public String getImgPath() {
-		return imgPath;
 	}
 
 	public void setImgPath(String imgPath) {
@@ -257,8 +249,5 @@ public class Apartment {
 		else 
 			return false;
 	}
-	
-	
-	
-	
+		
 }

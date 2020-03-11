@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import lab02_01.database.Database;
+import lab02_01.import_export.ImportExport;
 import lab02_01.logic.Apartment;
 import lab02_01.logic.Logic;
 
@@ -100,7 +101,7 @@ public class AppWindow extends JFrame implements ActionListener{
 				
 			}
 			else if (eventSource == editB) {
-				new EditWindow(this, logic, table.getSelectedRow(),db);
+				new EditWindow(this, logic, table.getSelectedRow(), db);
 			}
 			else if (eventSource == removeB) { 	
 				db.removeApartment(logic.getApartment(table.getSelectedRow()).getId());
@@ -112,11 +113,23 @@ public class AppWindow extends JFrame implements ActionListener{
 				
 				new InfoWindow(logic, table.getSelectedRow(),db);
 			}
-			else if (eventSource == importB) { 
-				
+			else if (eventSource == importB) {
+				JFileChooser fileChooser = new JFileChooser();
+				int retValue = fileChooser.showOpenDialog(panel);
+				if (retValue == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					Apartment app = ImportExport.importApartment(file.getAbsolutePath());
+					logic.add(app);
+				}
+				refresh();
 			}
 			else if (eventSource == exportB) { 
-				
+				JFileChooser exportDirectoryChooser = new JFileChooser();
+				exportDirectoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int retValue = exportDirectoryChooser.showSaveDialog(panel);
+				if (retValue == JFileChooser.APPROVE_OPTION) {
+					ImportExport.exportApartment(logic.getApartment(table.getSelectedRow()), exportDirectoryChooser.getSelectedFile().getAbsolutePath());
+				}
 			}
 		
 		} catch(Exception e) {
