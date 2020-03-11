@@ -198,10 +198,34 @@ public class Database {
 	         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	         System.exit(0);
 	      }
+	    System.out.println("Operation done successfully");
 
 	}
 	
-	
+	public void editApartment(int id, Apartment apartment)
+	{
+
+	    String[] values = apartment.value();
+
+	    String sql =  "Update Apartaments Set id = ?,name = ?, address = ?, nominalPrice = ?,rentingPrice = ?,deposit = ?,"
+         		+ " paidTo = ?, rentedFrom = ?, rentedTo = ?,free = ? , agreement = ?, imgPath = ? WHERE id = ?";
+	    try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+ 
+            // set the corresponding param
+	    	pstmt.setInt(1,Integer.parseInt(values[0]));
+			for(int j = 2,k=1;k<values.length;j++,k++)
+			{
+		    pstmt.setString(j, values[k]);
+			}
+			pstmt.setInt(values.length+1,Integer.parseInt(values[0]));
+            // update 
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+	    System.out.println("Operation done successfully");
+	}
 	
 	public List<Apartment> fillApartmentList()
 	{

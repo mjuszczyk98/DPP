@@ -109,7 +109,7 @@ public class AppWindow extends JFrame implements ActionListener{
 			}
 			else if (eventSource == infoB) { 
 				
-				new InfoWindow(logic, table.getSelectedRow());
+				new InfoWindow(logic, table.getSelectedRow(),db);
 			}
 			else if (eventSource == importB) { 
 				

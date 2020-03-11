@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import lab02_01.database.Database;
 import lab02_01.logic.Logic;
 
 public class InfoWindow extends JFrame implements ActionListener {
@@ -32,14 +33,16 @@ public class InfoWindow extends JFrame implements ActionListener {
 	
 	Logic logic;
 	int row;
+	Database db;
 	
 	JButton pathButton = new JButton("Path");
 	JButton agreeButton = new JButton("Edit agreement");
 	
-	InfoWindow(Logic logic,int row){
+	InfoWindow(Logic logic,int row, Database db){
 		
 		this.logic = logic;
 		this.row = row;
+		this.db=db; 
 		
 		label.setPreferredSize(new Dimension(400, 400));
 		label.setIcon(new ImageIcon(logic.getApartment(row).getImgPath()));
@@ -82,6 +85,7 @@ public class InfoWindow extends JFrame implements ActionListener {
 				if(path!=null) {
 					logic.getApartment(row).setImgPath(path);
 					label.setIcon(new ImageIcon(path));
+					db.editApartment(logic.getApartment(row).getId(), logic.getApartment(row));
 				}
 			}
 			else if(eventSource == agreeButton){
@@ -94,6 +98,7 @@ public class InfoWindow extends JFrame implements ActionListener {
 					logic.getApartment(row).setAgreement(area.getText());
 					agreeButton.setText("Edit agreement");
 					logic.getApartment(row).setAgreement(logic.getApartment(row).getAgreement());
+					db.editApartment(logic.getApartment(row).getId(), logic.getApartment(row));
 				}
 			}
 		

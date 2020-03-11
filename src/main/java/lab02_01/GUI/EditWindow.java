@@ -27,7 +27,7 @@ public class EditWindow extends AddWindow {
 		this.logic = logic;
 		this.position = position;
 		apartment = logic.getApartment(position);
-		
+				
 		setTitle("EditApartment");
 		
 		data = logic.get(position);
@@ -49,7 +49,8 @@ public class EditWindow extends AddWindow {
 		Object eventSource = event.getSource();
 
 		try {
-			if (eventSource == OKButton) { 
+			if (eventSource == OKButton) {
+				int tempId = apartment.getId();
 				apartment.edit(Integer.parseInt(idField.getText()), addressField.getText(), Float.parseFloat(nomField.getText()));
 				String[] p = paidField.getText().split("-");
 				String[] from = fromField.getText().split("-");
@@ -59,6 +60,7 @@ public class EditWindow extends AddWindow {
 						Integer.parseInt(p[2]), Integer.parseInt(from[0]), Integer.parseInt(from[1]),
 						Integer.parseInt(from[2]), Integer.parseInt(to[0]), Integer.parseInt(to[1]), Integer.parseInt(to[2]),
 						"", "");
+				db.editApartment(tempId, apartment);
 				parent.refresh();
 				dispose();
 
