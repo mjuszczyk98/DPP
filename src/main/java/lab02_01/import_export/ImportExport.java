@@ -18,7 +18,6 @@ public class ImportExport {
 	private static final SimpleDateFormat formatterFilename = new SimpleDateFormat("ddMMyyyy_HHmmss");
 	private static final SimpleDateFormat formatterApartmentData = new SimpleDateFormat("ddMMyyyy");
 	
-	
 	private static String createCsvContent(Apartment apartment) {
 		StringBuilder csvText = new StringBuilder();
 		csvText.append(apartment.getId()).append(semicolon);
@@ -115,15 +114,5 @@ public class ImportExport {
 		}
 		
 		return result;
-	}
-	
-	public static void main(String[] args) {
-		//TODO przy podpinaniu do GUI uzyc filechoosera do wybrania sciezki do pliku
-		String filepath = "./apartment_09032020_204205.csv";
-		Apartment app = importApartment(filepath);
-		
-		exportData(app);
-		
-		System.out.println("moze dziala?");
 	}
 }
