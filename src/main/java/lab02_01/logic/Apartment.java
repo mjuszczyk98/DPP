@@ -148,6 +148,50 @@ public class Apartment {
 		return id;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public String getAdress() {
+		return address;
+	}
+	
+	public float getNominalPrice() {
+		return nominalPrice;
+	}
+	
+	public float getRentingPrice() {
+		return rentingPrice;
+	}
+	
+	public float getDeposit() {
+		return deposit;
+	}
+	
+	public Calendar getPaidTo() {
+		return paidTo;
+	}
+	
+	public Calendar getRentedFrom() {
+		return rentedFrom;
+	}
+	
+	public Calendar getRentedTo() {
+		return rentedTo;
+	}
+	
+	public boolean isFree() {
+		return free;
+	}
+	
+	public String getAgreement() {
+		return agreement;
+	}
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+	
 	public String[] value() {
 		String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+
