@@ -102,10 +102,11 @@ public class AppWindow extends JFrame implements ActionListener{
 			else if (eventSource == editB) {
 				new EditWindow(this, logic, table.getSelectedRow(),db);
 			}
-			else if (eventSource == removeB) { 
-	
+			else if (eventSource == removeB) { 	
+				db.removeApartment(logic.getApartment(table.getSelectedRow()).getId());
 				logic.remove(table.getSelectedRow());
 				table.changeSelection(0, 0, false, false);
+				refresh();
 			}
 			else if (eventSource == infoB) { 
 				
