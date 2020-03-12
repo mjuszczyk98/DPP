@@ -52,7 +52,6 @@ public class Database {
 	   }
 	
     private Connection connect() {
-        // SQLite connection string
         String url = "jdbc:sqlite:test.db";
         Connection conn = null;
         try {
@@ -182,10 +181,7 @@ public class Database {
 		String sql =  "DELETE FROM Apartaments WHERE id = ?";
 	    try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
- 
-            // set the corresponding param
 	    	pstmt.setInt(1,id);
-            // update 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -202,15 +198,12 @@ public class Database {
          		+ " paidTo = ?, rentedFrom = ?, rentedTo = ?,free = ? , agreement = ?, imgPath = ? WHERE id = ?";
 	    try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
- 
-            // set the corresponding param
 	    	pstmt.setInt(1,Integer.parseInt(values[0]));
 			for(int j = 2,k=1;k<values.length;j++,k++)
 			{
 		    pstmt.setString(j, values[k]);
 			}
 			pstmt.setInt(values.length+1,Integer.parseInt(values[0]));
-            // update 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
