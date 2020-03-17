@@ -30,7 +30,7 @@ public class AddWindow extends JFrame implements ActionListener{
 	JLabel nomLabel = 		new JLabel(" Cena oczekiwana: ");
 	JLabel renLabel   = 	new JLabel(" Czynsz: ");
 	JLabel depLabel   = 	new JLabel(" Kaucja: ");
-	JLabel paidLabel   = 	new JLabel(" Op≥acone do: ");
+	JLabel paidLabel   = 	new JLabel(" Op≈Çacone do: ");
 	JLabel fromLabel  = 	new JLabel(" Wynajem od: ");
 	JLabel toLabel = 		new JLabel(" Wynajem do: ");
 	
