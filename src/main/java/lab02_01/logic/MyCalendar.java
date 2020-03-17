@@ -2,6 +2,10 @@ package lab02_01.logic;
 
 import java.util.Calendar;
 
+/**
+ * @author Michał Juszczyk
+ *	Klasa do łatwiejszego ustawiania daty w {@link Calendar}
+ */
 public class MyCalendar extends Calendar{
 	
 	private static final long serialVersionUID = 1L;

@@ -3,19 +3,61 @@ package lab02_01.logic;
 import java.util.Calendar;
 
 public class Apartment {
+	/**
+	 * identyfikator
+	 */
 	int id;
+	/**
+	 * nazwisko najemcy
+	 */
 	String name;
+	/**
+	 * adres
+	 */
 	String address;
+	/**
+	 * cena nominalna
+	 */
 	float nominalPrice;
+	/**
+	 * cena wynajmu
+	 */
 	float rentingPrice;
+	/**
+	 * depozyt
+	 */
 	float deposit;
+	/**
+	 * oplacone do
+	 */
 	Calendar paidTo;
+	/**
+	 * wynajete od
+	 */
 	Calendar rentedFrom;
+	/**
+	 * wynajete do
+	 */
 	Calendar rentedTo;
+	/**
+	 * czy wolne
+	 */
 	boolean free;
+	/**
+	 * tresc umowy
+	 */
 	String agreement;
+	/**
+	 * sciezka do obrazow
+	 */
 	String imgPath;
 	
+	/**
+	 * Konstruktor tworzący niewynajęty apartament
+	 * @param id - identyfikator
+	 * @param address - adres
+	 * @param nominalPrice - cena nominalna
+	 */
 	public Apartment(int id, String address, float nominalPrice) {
 		this.id = id;
 		this.address = address;
@@ -23,6 +65,21 @@ public class Apartment {
 		this.free = true;
 	}
 	
+	/**
+	 * Konstruktor tworzący wynajęty apartament
+	 * @param id - identyfikator
+	 * @param name - nazwisko najemcy
+	 * @param address - adres
+	 * @param nominalPrice - cena nominalna
+	 * @param rentingPrice - cena najmu
+	 * @param deposit - depozyt
+	 * @param paidTo - oplacone do
+	 * @param rentedFrom - wynajem od
+	 * @param rentedTo - wynajem do
+	 * @param free - czy wolny
+	 * @param agreement - tresc umowy
+	 * @param imgPath - sciezka do umowy
+	 */
 	public Apartment(int id,String name, String address, float nominalPrice, float rentingPrice, float deposit
 			,Calendar paidTo, Calendar rentedFrom, Calendar rentedTo, boolean free, String agreement, String imgPath) {
 		this.id = id;
@@ -39,17 +96,38 @@ public class Apartment {
 		this.imgPath = imgPath;
 	}
 
-	
+	/**
+	 * Konstruktor tworzy pusty apartament
+	 * @param id - identyfikator
+	 */
 	public Apartment (int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Funkcaj edytuje apartament
+	 * @param id - identyfikator
+	 * @param address - adres
+	 * @param nominalPrice - cena nominalna
+	 */
 	public void edit(int id, String address, float nominalPrice) {
 		this.id = id;
 		this.address = address;
 		this.nominalPrice = nominalPrice;
 	}
 	
+	/**
+	 * Funckaja wynajmuje aparatment
+	 * @param name - nazwisko najemcy
+	 * @param rentingPrice - cena najmu
+	 * @param deposit - depozyt
+	 * @param paidTo - oplacone do
+	 * @param rentedFrom - wynajem od
+	 * @param rentedTo - wynajem do
+	 * @param agreement - tresc umowy
+	 * @param imgPath - sciezka do umowy
+	 * @return czy sie udalo
+	 */
 	public boolean rent(String name, float rentingPrice, float deposit, Calendar paidTo, Calendar rentedFrom, Calendar rentedTo, String agreement, String imgPaht) {
 		this.name = name;
 		this.rentingPrice = rentingPrice;
@@ -72,6 +150,11 @@ public class Apartment {
 		this.imgPath = imgPath;
 	}
 
+	/**
+	 * Funkcja przedłużająca opłacony czas
+	 * @param amount - kwota 
+	 * @return do kiedy oplacone
+	 */
 	public String pay(float amount) {
 		int day = paidTo.get(Calendar.DAY_OF_MONTH);
 		int month = paidTo.get(Calendar.MONTH);
@@ -126,6 +209,9 @@ public class Apartment {
 		return Integer.toString(day)+"/"+Integer.toString(month)+"/"+Integer.toString(year);
 	}
 	
+	/**
+	 * Funkcja zwalniajaca apartament
+	 */
 	public void free() {
 		name = null;
 		rentingPrice = 0;
@@ -184,14 +270,18 @@ public class Apartment {
 		return imgPath;
 	}
 	
+	/**
+	 * Funkcaj zwraca wartosci apartamentu w tablicy
+	 * @return tablica argumentow
+	 */
 	public String[] value() {
 		String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.YEAR));
-		String rentedFromString =Integer.toString(rentedFrom.get(Calendar.DAY_OF_MONTH))+"-"+
+		String rentedFromString = Integer.toString(rentedFrom.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(rentedFrom.get(Calendar.MONTH))+"-"+
 				Integer.toString(rentedFrom.get(Calendar.YEAR));
-		String rentedToString =Integer.toString(rentedTo.get(Calendar.DAY_OF_MONTH))+"-"+
+		String rentedToString = Integer.toString(rentedTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(rentedTo.get(Calendar.MONTH))+"-"+
 				Integer.toString(rentedTo.get(Calendar.YEAR));
 
@@ -211,6 +301,11 @@ public class Apartment {
 		};
 		return ret;
 	}
+	
+	/**
+	 * Funkcaj zwraca wartosci apartamentu w tablicy
+	 * @return tablica argumentow
+	 */
 	public String[] value2() {
 		String paidToString = Integer.toString(paidTo.get(Calendar.DAY_OF_MONTH))+"-"+
 				Integer.toString(paidTo.get(Calendar.MONTH))+"-"+

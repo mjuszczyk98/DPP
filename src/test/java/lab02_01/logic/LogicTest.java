@@ -2,81 +2,101 @@ package lab02_01.logic;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
 import junitparams.JUnitParamsRunner;
 
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(JUnitParamsRunner.class)
-@PrepareForTest({Apartment.class, Logic.class})
 public class LogicTest {
 	
 	@Test
-	public void testLogic() throws Exception {
+	public void testAdd() throws Exception {
 		Logic logic = new Logic();
-		
-		Date mockDate = Mockito.mock(Date.class);
-		Calendar mockCalendar = PowerMockito.mock(Calendar.class);
-		PowerMockito.doReturn(mockDate).when(mockCalendar).getTime();
-		
-		PowerMockito.mockStatic(Calendar.class);
-		PowerMockito.when(Calendar.getInstance()).thenReturn(mockCalendar);
-		
 		Apartment mockApartment = Mockito.mock(Apartment.class);
-		PowerMockito.whenNew(Apartment.class).withAnyArguments().thenReturn(mockApartment);
 		
-
 		logic.add(mockApartment);
 		assertThat(logic.apartments.size()).isEqualTo(1);
-		logic.remove(0);
-		assertThat(logic.apartments.size()).isEqualTo(0);
-		logic.add(0, null, 0);
-		assertThat(logic.apartments.size()).isEqualTo(1);
-		Apartment a = logic.getApartment(0);
-		assertThat(a).isEqualTo(mockApartment);
-		logic.edit(0, null, 0);
-		String[] s = logic.get(0);
-		assertThat(s).isEqualTo(mockApartment.value());
-		logic.rent(0, null, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, null, null);
-		logic.pay(0, 0);
-		logic.free(0);
-		logic.delete(0);
-		logic.editView();
 		
+		logic = new Logic();
+		logic.add(0, null, 0.0f);
+		assertThat(logic.apartments.size()).isEqualTo(1);
 	}
 	
 	@Test
-	public void testApartments() throws Exception{
-		Apartment apartment;
-		Date mockDate = Mockito.mock(Date.class);
-		Calendar mockCalendar = PowerMockito.mock(Calendar.class);
-		PowerMockito.doReturn(mockDate).when(mockCalendar).getTime();
+	public void testGetApartment() throws Exception {
+		Logic logic = new Logic();
+		Apartment mockApartment = Mockito.mock(Apartment.class);
 		
-		PowerMockito.mockStatic(Calendar.class);
-		PowerMockito.when(Calendar.getInstance()).thenReturn(mockCalendar);
+		logic.add(mockApartment);
+		assertThat(logic.getApartment(0)).isEqualTo(mockApartment);
+	}
+
+	@Test
+	public void testRemove() throws Exception {
+		Logic logic = new Logic();
+		Apartment mockApartment = Mockito.mock(Apartment.class);
 		
-		apartment = new Apartment(1);
-		apartment = new Apartment(1, null, 0.0f);
-		apartment = new Apartment(1, null, null, 0.0f, 0.0f, 0.0f, mockCalendar, mockCalendar, mockCalendar, false, null, null); 
+		logic.add(mockApartment);
+		logic.remove(0);
+		assertThat(logic.apartments.size()).isEqualTo(0);
+	}
+	
+	@Test
+	public void testDelete() throws Exception {
+		Logic logic = new Logic();
 		
-		assertThat(apartment.value()).isNotNull();
-		assertThat(apartment.value2()).isNotNull();
+		logic.add(0, null, 0);
+		logic.delete(0);
+		assertThat(logic.apartments.size()).isEqualTo(0);
+	}
+	
+	@Test
+	public void testEdit() throws Exception {
+		Logic logic = new Logic();
 		
-		apartment.edit(1, null, 0.0f);
-		assertThat(apartment.rent(null, 0.0f, 0.0f, mockCalendar, mockCalendar, mockCalendar, null, null)).isEqualTo(true);
-		apartment.setAgreement(null);
-		apartment.setImgPath(null);
-		assertThat(apartment.pay(-1.0f)).isNotNull();
-		assertThat(apartment.pay(1.0f)).isNotNull();
-		apartment.free();
+		logic.add(0, null, 0);
+		logic.edit(0, "mock", 1.0f);
+		assertThat(logic.apartments.get(0).address).isEqualTo("mock");
+	}
+	
+	@Test
+	public void testRent() throws Exception {
+		Logic logic = new Logic();
+		
+		logic.add(0, null, 0);
+		logic.rent(0, null, 0.0f, 0.0f, 1, 1, 1, 1, 1, 1, 1, 1, 1, null, null);	
+		assertThat(logic.apartments.get(0).free).isEqualTo(false);
+	}
+	
+	@Test
+	public void testPay() throws Exception {
+		Logic logic = new Logic();
+		
+		logic.add(0,null,0);
+		logic.rent(0, null, 0.0f, 0.0f, 1, 1, 1999, 1, 1, 1999, 1, 10, 1999, null, null);	
+		assertThat(logic.pay(0, 1000.0f)).isNotNull();
+	}
+	
+	@Test
+	public void testFree() throws Exception {
+		Logic logic = new Logic();
+		
+		logic.add(0,null,0);
+		logic.rent(0, null, 0.0f, 0.0f, 1, 1, 1999, 1, 1, 1999, 1, 10, 1999, null, null);	
+		logic.free(0);
+		assertThat(logic.apartments.get(0).free).isEqualTo(true);
+	}
+	
+	@Test
+	public void testEditView() throws Exception {
+		Logic logic = new Logic();
+		
+		logic.add(0,null,0);
+		logic.rent(0, null, 0.0f, 0.0f, 1, 1, 1999, 1, 1, 1999, 1, 10, 1999, null, null);	
+		assertThat(logic.editView()).isNotNull();
 	}
 }
