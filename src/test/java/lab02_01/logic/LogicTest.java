@@ -1,5 +1,7 @@
 package lab02_01.logic;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,16 +36,22 @@ public class LogicTest {
 		
 
 		logic.add(mockApartment);
+		assertThat(logic.apartments.size()).isEqualTo(1);
 		logic.remove(0);
+		assertThat(logic.apartments.size()).isEqualTo(0);
 		logic.add(0, null, 0);
-		logic.getApartment(0);
+		assertThat(logic.apartments.size()).isEqualTo(1);
+		Apartment a = logic.getApartment(0);
+		assertThat(a).isEqualTo(mockApartment);
 		logic.edit(0, null, 0);
-		logic.get(0);
+		String[] s = logic.get(0);
+		assertThat(s).isEqualTo(mockApartment.value());
 		logic.rent(0, null, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, null, null);
 		logic.pay(0, 0);
 		logic.free(0);
 		logic.delete(0);
 		logic.editView();
+		
 	}
 	
 	@Test
@@ -60,15 +68,15 @@ public class LogicTest {
 		apartment = new Apartment(1, null, 0.0f);
 		apartment = new Apartment(1, null, null, 0.0f, 0.0f, 0.0f, mockCalendar, mockCalendar, mockCalendar, false, null, null); 
 		
-		apartment.value();
-		apartment.value2();
+		assertThat(apartment.value()).isNotNull();
+		assertThat(apartment.value2()).isNotNull();
 		
 		apartment.edit(1, null, 0.0f);
-		apartment.rent(null, 0.0f, 0.0f, mockCalendar, mockCalendar, mockCalendar, null, null);
+		assertThat(apartment.rent(null, 0.0f, 0.0f, mockCalendar, mockCalendar, mockCalendar, null, null)).isEqualTo(true);
 		apartment.setAgreement(null);
 		apartment.setImgPath(null);
-		apartment.pay(-1.0f);
-		apartment.pay(1.0f);
+		assertThat(apartment.pay(-1.0f)).isNotNull();
+		assertThat(apartment.pay(1.0f)).isNotNull();
 		apartment.free();
 	}
 }
